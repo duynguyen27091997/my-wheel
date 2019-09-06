@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="wheel.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="superwheel"></div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="superwheel.js"></script>
+<script>
+    jQuery(document).ready(function($){
+        $('.superwheel').superWheel({
+            slices: [
+                {
+                    background: "mediumseagreen",
+                    text: '20% OFF',
+                    message: 'You win 20% off',
+                    value: 1
+                },{
+                    background : "#F44336",
+                    text: 'No luck',
+                    message: 'You have No luck today',
+                    value: 1
+                },{
+                    background : "#607D8B",
+                    text: '30% OFF',
+                    message: 'You win 30% off',
+                    value: 1
+                },{
+                    background : "#4CAF50",
+                    text: 'Lose',
+                    message: 'You Lose :(',
+                    value: 1
+                },{
+                    background : "#FFC107",
+                    text: '40% OFF',
+                    message: 'You win 40% off',
+                    value: 4
+                },{
+                    background :"#3F51B5",
+                    text: 'Nothing',
+                    message: 'You get Nothing :(',
+                    value: 1
+                },
+                {
+                    background : "#333",
+                    text : "Boom",
+                    message :"Boommmmmmmmmmm",
+                    value:1
+                }
+            ],
+            selected : "value",
+        });
+    });
+    let count = 0;
+    let holdStart = null,
+        holdTime = null;
+    $(document).on('mousedown', '.sWheel-marker' ,function(e){
+        holdStart = Date.now();
+    });
+    $(document).on('mouseup', '.sWheel-marker' ,function(e){
+        count++;
+        console.log(count);
+        holdTime = Date.now() - holdStart;
+        console.log(holdTime);
+        // By default the slice key (value) is captured from wheel parameter "selector"
+        // Start spin and select random winner from slices Where value is "0"
+        if (count===10){
+            $('.superwheel').superWheel("start",4);
+        }else{
+            $('.superwheel').superWheel("start",1);
+        }
+    });
+
+    $(".modal .close").click(function () {
+        $(this).parents(".modal").hide();
+    })
+</script>
+</body>
+</html>
